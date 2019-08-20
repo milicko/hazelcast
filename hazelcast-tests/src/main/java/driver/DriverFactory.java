@@ -6,6 +6,11 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 public class DriverFactory {
 
 
@@ -47,16 +52,15 @@ public class DriverFactory {
     public WebDriver createDriver(DriverType type) {
         WebDriver driver = null;
 
-        String driverPath = System.getProperty(DRIVER_PROPERTY);
 
         switch (type) {
             case CHROME:
-                System.setProperty("webdriver.chrome.driver", driverPath);
+                System.setProperty("webdriver.chrome.driver", getClass().getClassLoader().getResource("drivers/chromedriver").getPath());
                 setDriver(_driver = new ChromeDriver());
                 _driver.manage().window().maximize();
                 break;
             case FIREFOX:
-                System.setProperty("webdriver.gecko.driver", driverPath);
+                System.setProperty("webdriver.gecko.driver", getClass().getClassLoader().getResource("drivers/geckodriver").getPath());
                 setDriver(_driver = new FirefoxDriver());
                 _driver.manage().window().maximize();
                 break;
