@@ -1,17 +1,12 @@
 package hazelcast;
 
-import base.Base;
 import base.BaseTest;
 import hazelcast.views.HomeView;
+import hazelcast.views.StatusView;
 
-public class Login extends Base {
-    public Login(BaseTest _driver) {
-        super(_driver);
+public class Login extends BaseTest {
 
-    }
-
-    private String LOCATOR_PASSWORD = "//input[@name='password']";
-    private String LOCATOR_USERNAME = "//input[@name='username']";
+    public static final String INPUT_LOCATOR_TEMPLATE = "//input[@name='%s']";
     private String LOCATOR_LOGIN = "//button[@type='submit']";
 
     /**
@@ -21,7 +16,7 @@ public class Login extends Base {
      * @return - Login
      */
     public Login setUsername(String username) {
-        typeKeys(LOCATOR_USERNAME, username);
+        typeKeys(String.format(INPUT_LOCATOR_TEMPLATE, "username"), username);
         return this;
     }
 
@@ -32,7 +27,7 @@ public class Login extends Base {
      * @return Login
      */
     public Login setPassword(String password) {
-        typeKeys(LOCATOR_PASSWORD, password);
+        typeKeys(String.format(INPUT_LOCATOR_TEMPLATE, "password"), password);
         return this;
     }
 
@@ -41,8 +36,8 @@ public class Login extends Base {
      *
      * @return Home View
      */
-    public HomeView login() {
+    public StatusView login() {
         click(LOCATOR_LOGIN);
-        return new HomeView(this);
+        return new StatusView();
     }
 }

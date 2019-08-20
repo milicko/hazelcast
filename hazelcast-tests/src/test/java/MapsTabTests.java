@@ -12,32 +12,28 @@ import org.junit.Test;
  *
  * @author Milic Bogicevic
  */
-public class MapsTabTests extends BaseTest {
-    HomeView homeView = new HomeView(this);
+public class MapsTabTests {
 
-    @Before
-    public void login() {
-        openBrowser(Constants.BASE_URL);
-        Login login = new Login(this);
-
-        login.setUsername(Constants.USERNAME).setPassword(Constants.PASSWORD).login();
+    public HomeView login() {
+        Login login = new Login();
+        login.openBrowser(Constants.BASE_URL);
+        return login.setUsername(Constants.USERNAME).setPassword(Constants.PASSWORD).login();
     }
 
     @Test
     public void verifyValueFromEntries() {
-
         String mapName = "default";
 
-
-        homeView.selectMapsTab().verifyEntityValue(mapName, 110);
+        HomeView homeView = login();
+        homeView.selectMapsTab().verifyEntityValue(mapName, 100);
 
     }
 
     @After
     public void logoutAndCloseBrowser() {
 
-        homeView.logOut();
-        closeBrowser();
+        HomeView homeView = new HomeView();
+        homeView.logOut().closeBrowser();
     }
 
 

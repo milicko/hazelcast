@@ -6,10 +6,6 @@ import base.BaseTable;
 public class MapsView extends HomeView {
     public static final String COLUMN_ENTRIES = "Entries";
 
-    public MapsView(BaseTest _driver) {
-        super(_driver);
-
-    }
 
     /**
      * This method verifies value form column Entries by name of the map in table
@@ -24,7 +20,7 @@ public class MapsView extends HomeView {
     }
 
     private BaseTable getTable() {
-        return new BaseTable(this);
+        return new BaseTable();
     }
 
 }

@@ -1,18 +1,12 @@
 package hazelcast.views;
 
 
-import base.BaseTest;
 import base.Views;
 import hazelcast.Login;
-import hazelcast.views.MapsView;
 
 public class HomeView extends Views {
-    public HomeView(BaseTest _driver) {
-        super(_driver);
 
-    }
-
-    private String LOGOUT_LOCATOR = "//a[@data-test='logout']";
+    public static final String LOGOUT_LOCATOR = "//a[@data-test='logout']";
 
 
     /**
@@ -22,7 +16,7 @@ public class HomeView extends Views {
      */
     public MapsView selectMapsTab() {
         selectTab("menu-maps");
-        return new MapsView(this);
+        return new MapsView();
     }
 
     /**
@@ -32,7 +26,7 @@ public class HomeView extends Views {
      */
     public Login logOut() {
         click(LOGOUT_LOCATOR);
-        return new Login(this);
+        return new Login();
     }
 
 

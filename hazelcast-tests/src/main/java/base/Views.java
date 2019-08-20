@@ -1,15 +1,8 @@
 package base;
 
-public class Views extends Base {
+public class Views extends BaseTest {
 
-    public Views(BaseTest _driver) {
-        super(_driver);
-
-    }
-
-    private String MAPS_TAB(String dataTest) {
-        return String.format("//div[@id='sidebar-menu']//a[@data-test='" + dataTest + "']");
-    }
+    public static final String MAPS_TAB_LOCATOR_TEMPLATE = "//div[@id='sidebar-menu']//a[@data-test='%s']";
 
 
     /**
@@ -18,7 +11,7 @@ public class Views extends Base {
      * @param dataTest - data-test parm
      */
     protected void selectTab(String dataTest) {
-        click(MAPS_TAB(dataTest));
+        click(String.format(MAPS_TAB_LOCATOR_TEMPLATE, dataTest));
     }
 
 
