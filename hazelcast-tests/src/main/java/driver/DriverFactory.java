@@ -100,9 +100,11 @@ public class DriverFactory {
 
         switch (type) {
             case CHROME:
+                ChromeOptions options = new ChromeOptions();
+                options.addArguments("--headless");
                 System.out.println("Creating chrome webdriver!");
                 System.setProperty("webdriver.chrome.driver", driverPath);
-                setDriver(_driver = new ChromeDriver());
+                setDriver(_driver = new ChromeDriver(options));
                 _driver.manage().window().maximize();
                 break;
             case FIREFOX:
