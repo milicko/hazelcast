@@ -102,6 +102,7 @@ public class DriverFactory {
             case CHROME:
                 ChromeOptions options = new ChromeOptions();
                 options.addArguments("--headless");
+                options.addArguments("--whitelisted-ips");
                 System.out.println("Creating chrome webdriver!");
                 System.setProperty("webdriver.chrome.driver", driverPath);
                 setDriver(_driver = new ChromeDriver(options));
