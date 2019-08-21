@@ -104,7 +104,7 @@ public class DriverFactory {
                 options.addArguments("--headless");
                 options.addArguments("--whitelisted-ips");
                 options.addArguments("--verbose");
-                options.addArguments("--no-sandbox");
+                //options.addArguments("--no-sandbox");
                 options.addArguments("--disable-extensions");
                 //options.addArguments("--disable-dev-shm-usage");
                 System.out.println("Creating chrome webdriver!");
