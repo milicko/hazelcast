@@ -28,7 +28,7 @@ public class BaseTest {
      * @param url - url that you want to open
      */
     public void openBrowser(String url) {
-
+        System.out.println("opening browser");
         getDriver().get(url);
     }
 
@@ -46,7 +46,7 @@ public class BaseTest {
      * @param locator - xpath locator to the element
      */
     public void waitForVisible(final String locator) {
-        WebDriverWait wait = new WebDriverWait(getDriver(), 5);
+        WebDriverWait wait = new WebDriverWait(getDriver(), 10);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(locator)));
 
     }

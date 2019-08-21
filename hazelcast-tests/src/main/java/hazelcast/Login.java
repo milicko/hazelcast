@@ -16,6 +16,7 @@ public class Login extends BaseTest {
      * @return - Login
      */
     public Login setUsername(String username) {
+        waitForVisible(String.format(INPUT_LOCATOR_TEMPLATE, "username"));
         typeKeys(String.format(INPUT_LOCATOR_TEMPLATE, "username"), username);
         return this;
     }
