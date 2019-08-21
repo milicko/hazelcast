@@ -77,6 +77,8 @@ public class DriverFactory {
         if (driverPath == null || driverPath.equals("")) {
             throw new RuntimeException("Path to driver isn't set!");
         }
+
+        System.out.println(String.format("#### CREATING PATH#### %s", driverPath));
         return driverPath;
 
 
@@ -98,6 +100,7 @@ public class DriverFactory {
 
         switch (type) {
             case CHROME:
+                System.out.println("Creating chrome webdriver!");
                 System.setProperty("webdriver.chrome.driver", driverPath);
                 setDriver(_driver = new ChromeDriver());
                 _driver.manage().window().maximize();
