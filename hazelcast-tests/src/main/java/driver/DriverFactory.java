@@ -106,7 +106,7 @@ public class DriverFactory {
                 System.out.println("Creating chrome webdriver!");
                 //System.setProperty("webdriver.chrome.driver", driverPath);
                 setDriver(_driver = new ChromeDriver(options));
-                _driver.manage().window().maximize();
+                //_driver.manage().window().maximize();
                 break;
             case FIREFOX:
                 //System.setProperty("webdriver.gecko.driver", driverPath);
