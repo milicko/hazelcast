@@ -92,24 +92,24 @@ public class DriverFactory {
     public WebDriver createDriver(DriverType type) {
         WebDriver driver = null;
 
-        String driverPath = getDriverPath(type);
+        //String driverPath = getDriverPath(type);
 
-        if (driverPath.equals("")) {
-            throw new RuntimeException(String.format("System property for driver %s wasn't set! Set system property -D%s", DRIVER_PROPERTY, DRIVER_PROPERTY));
-        }
+//        if (driverPath.equals("")) {
+//            throw new RuntimeException(String.format("System property for driver %s wasn't set! Set system property -D%s", DRIVER_PROPERTY, DRIVER_PROPERTY));
+//        }
 
         switch (type) {
             case CHROME:
                 ChromeOptions options = new ChromeOptions();
-                options.addArguments("--headless");
+//                options.addArguments("--headless");
                 options.addArguments("--whitelisted-ips");
                 System.out.println("Creating chrome webdriver!");
-                System.setProperty("webdriver.chrome.driver", driverPath);
+                //System.setProperty("webdriver.chrome.driver", driverPath);
                 setDriver(_driver = new ChromeDriver(options));
                 _driver.manage().window().maximize();
                 break;
             case FIREFOX:
-                System.setProperty("webdriver.gecko.driver", driverPath);
+                //System.setProperty("webdriver.gecko.driver", driverPath);
                 setDriver(_driver = new FirefoxDriver());
                 _driver.manage().window().maximize();
                 break;
