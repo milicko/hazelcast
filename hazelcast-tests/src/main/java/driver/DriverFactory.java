@@ -105,7 +105,7 @@ public class DriverFactory {
                 options.addArguments("--whitelisted-ips");
                 options.addArguments("--verbose");
                 options.addArguments("--no-sandbox");
-                options.addArguments("--disable-dev-shm-usage");
+                //options.addArguments("--disable-dev-shm-usage");
                 System.out.println("Creating chrome webdriver!");
                 //System.setProperty("webdriver.chrome.driver", driverPath);
                 setDriver(_driver = new ChromeDriver(options));
