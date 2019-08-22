@@ -3,7 +3,7 @@ public class Constants {
 
     public static String getBaseUrl() {
         String baseUrl = null;
-        if (System.getProperty("remote.driver").equals("true")) {
+        if (System.getProperty("browser").equals("remote")) {
             baseUrl = "http://" + System.getenv("APP_IP") + ":8081/mancenter";
         } else {
             baseUrl = BASE_URL;
