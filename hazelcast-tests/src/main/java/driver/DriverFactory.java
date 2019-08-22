@@ -6,6 +6,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.net.URL;
 import java.nio.file.Files;
@@ -117,6 +119,21 @@ public class DriverFactory {
                 setDriver(_driver = new FirefoxDriver());
                 _driver.manage().window().maximize();
                 break;
+
+            case REMOTE:
+
+                DesiredCapabilities capabilities = new DesiredCapabilities();
+                capabilities.setBrowserName("chrome");
+                capabilities.setVersion("latest");
+                capabilities.setCapability("enableVNC", true);
+                capabilities.setCapability("enableVideo", false);
+
+
+                try {
+                    setDriver(_driver = new RemoteWebDriver(new URL("http://selenoid:4444/wd/hub"), capabilities));
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
         }
 
 

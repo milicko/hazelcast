@@ -1,7 +1,7 @@
 package driver;
 
 public enum DriverType {
-    CHROME("chrome"), FIREFOX("firefox");
+    CHROME("chrome"), FIREFOX("firefox"), REMOTE("remote");
 
     /**
      * Returns driver type by name of the system property "browser"
