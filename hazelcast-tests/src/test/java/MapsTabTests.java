@@ -16,7 +16,7 @@ public class MapsTabTests {
 
     public HomeView login() {
         Login login = new Login();
-        login.openBrowser(Constants.BASE_URL);
+        login.openBrowser(Constants.getBaseUrl());
         return login.setUsername(Constants.USERNAME).setPassword(Constants.PASSWORD).login();
     }
 
