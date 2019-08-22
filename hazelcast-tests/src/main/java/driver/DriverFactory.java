@@ -68,7 +68,7 @@ public class DriverFactory {
         DesiredCapabilities capabilities = new DesiredCapabilities();
 
         if (remoteDriver.contains("true")) {
-            capabilities.setVersion("latest");
+
             capabilities.setCapability("enableVNC", true);
             capabilities.setCapability("enableVideo", false);
         }
@@ -78,6 +78,7 @@ public class DriverFactory {
             case CHROME:
                 if (remoteDriver.equals("true")) {
                     capabilities.setBrowserName("chrome");
+                    capabilities.setVersion("latest");
                     try {
                         setDriver(_driver = new RemoteWebDriver(new URI("http://selenoid:4444/wd/hub").toURL(), capabilities));
                     } catch (Exception e) {
