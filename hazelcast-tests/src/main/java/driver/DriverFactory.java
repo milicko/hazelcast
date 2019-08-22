@@ -9,6 +9,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
+import java.net.URI;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -19,6 +20,7 @@ public class DriverFactory {
 
     private static final String BROWSER_TYPE_PROPERTY = "browser";
     private static final String DRIVER_PROPERTY = "driver.path";
+    private static final String REMOTE_DRIVER = "remote.driver";
 
     public WebDriver getDriver() {
         if (_driver == null) {
@@ -53,38 +55,6 @@ public class DriverFactory {
         return driverType;
     }
 
-    public String getDriverPath(DriverType type) {
-
-        String driverPath = System.getProperty(DRIVER_PROPERTY);
-
-        switch (type) {
-            case CHROME: {
-                String chromePath = System.getProperty("webdriver.chrome.driver");
-                if (chromePath == null || chromePath.isEmpty()) {
-                } else {
-                    driverPath = chromePath;
-                }
-                break;
-            }
-            case FIREFOX:
-                String firefoxPath = System.getProperty("webdriver.gecko.driver");
-                if (firefoxPath == null || firefoxPath.isEmpty()) {
-                } else {
-                    driverPath = firefoxPath;
-                }
-                break;
-
-
-        }
-        if (driverPath == null || driverPath.equals("")) {
-            throw new RuntimeException("Path to driver isn't set!");
-        }
-
-        System.out.println(String.format("#### CREATING PATH#### %s", driverPath));
-        return driverPath;
-
-
-    }
 
     /**
      * Creating web driver for specific browser based on system property "browser"
@@ -93,49 +63,50 @@ public class DriverFactory {
      */
     public WebDriver createDriver(DriverType type) {
         WebDriver driver = null;
+        String driverPath = System.getProperty(DRIVER_PROPERTY);
+        String remoteDriver = System.getProperty(REMOTE_DRIVER);
+        DesiredCapabilities capabilities = new DesiredCapabilities();
 
-        //String driverPath = getDriverPath(type);
+        if (remoteDriver.contains("true")) {
+            capabilities.setVersion("latest");
+            capabilities.setCapability("enableVNC", true);
+            capabilities.setCapability("enableVideo", false);
+        }
 
-//        if (driverPath.equals("")) {
-//            throw new RuntimeException(String.format("System property for driver %s wasn't set! Set system property -D%s", DRIVER_PROPERTY, DRIVER_PROPERTY));
-//        }
 
         switch (type) {
             case CHROME:
-                ChromeOptions options = new ChromeOptions();
-                options.addArguments("--headless");
-                options.addArguments("--whitelisted-ips");
-                options.addArguments("--verbose");
-                //options.addArguments("--no-sandbox");
-                options.addArguments("--disable-extensions");
-                //options.addArguments("--disable-dev-shm-usage");
-                System.out.println("Creating chrome webdriver!");
-                //System.setProperty("webdriver.chrome.driver", driverPath);
-                setDriver(_driver = new ChromeDriver(options));
-                //_driver.manage().window().maximize();
+                if (remoteDriver.equals("true")) {
+                    capabilities.setBrowserName("chrome");
+                    try {
+                        setDriver(_driver = new RemoteWebDriver(new URI("http://selenoid:4444/wd/hub").toURL(), capabilities));
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                } else {
+                    System.setProperty("webdriver.chrome.driver", driverPath);
+                    setDriver(_driver = new ChromeDriver());
+                }
+                _driver.manage().window().maximize();
                 break;
             case FIREFOX:
-                //System.setProperty("webdriver.gecko.driver", driverPath);
-                setDriver(_driver = new FirefoxDriver());
+                if (remoteDriver.equals("true")) {
+                    capabilities.setBrowserName("firefox");
+
+                    try {
+                        setDriver(_driver = new RemoteWebDriver(new URI("http://selenoid:4444/wd/hub").toURL(), capabilities));
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                } else {
+
+                    System.setProperty("webdriver.gecko.driver", driverPath);
+                    setDriver(_driver = new FirefoxDriver());
+                }
                 _driver.manage().window().maximize();
                 break;
 
-            case REMOTE:
-
-                DesiredCapabilities capabilities = new DesiredCapabilities();
-                capabilities.setBrowserName("chrome");
-                capabilities.setVersion("latest");
-                capabilities.setCapability("enableVNC", true);
-                capabilities.setCapability("enableVideo", false);
-
-
-                try {
-                    setDriver(_driver = new RemoteWebDriver(new URL("http://selenoid:4444/wd/hub"), capabilities));
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
         }
-
 
         return driver;
 

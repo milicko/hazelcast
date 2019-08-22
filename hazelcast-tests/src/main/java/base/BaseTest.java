@@ -28,7 +28,6 @@ public class BaseTest {
      * @param url - url that you want to open
      */
     public void openBrowser(String url) {
-        System.out.println("opening browser");
         getDriver().get(url);
     }
 
