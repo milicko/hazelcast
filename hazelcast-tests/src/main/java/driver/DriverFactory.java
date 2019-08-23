@@ -117,8 +117,8 @@ public class DriverFactory {
                 } else {
                     ChromeOptions options = new ChromeOptions();
                     options.addArguments("headless");
-                    options.addArguments("--no-sandbox");
-                    options.addArguments("--disable-dev-shm-usage");
+                    //options.addArguments("--no-sandbox");
+                    //options.addArguments("--disable-dev-shm-usage");
                     System.setProperty("webdriver.chrome.driver", getDirverPath());
                     setDriver(_driver = new ChromeDriver(options));
                 }
