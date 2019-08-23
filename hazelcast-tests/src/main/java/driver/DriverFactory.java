@@ -119,7 +119,7 @@ public class DriverFactory {
                     options.addArguments("headless");
                     options.addArguments("--no-sandbox");
                     options.addArguments("--disable-dev-shm-usage");
-                    System.setProperty("webdriver.chrome.driver", getDirverPath());
+                    System.setProperty("webdriver.chrome.driver", driverPath);
                     setDriver(_driver = new ChromeDriver(options));
                 }
                 _driver.manage().window().maximize();
