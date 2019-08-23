@@ -70,7 +70,7 @@ public class DriverFactory {
                 driverPath = file.getPath();
                 break;
             case "Linux":
-                file = new File(getClass().getClassLoader().getResource("chromedriver_linux").getPath());
+                file = new File(System.getProperty("driver.path"));
                 file.setExecutable(true);
                 driverPath = file.getPath();
                 break;
