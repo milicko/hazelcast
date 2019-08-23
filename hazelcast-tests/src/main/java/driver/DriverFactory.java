@@ -9,6 +9,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
+import java.io.File;
 import java.net.URI;
 import java.net.URL;
 import java.nio.file.Files;
@@ -55,6 +56,18 @@ public class DriverFactory {
         return driverType;
     }
 
+    public String getDirverPath() {
+
+        String driverPath;
+        File file;
+
+        file = new File(System.getProperty("driver.path"));
+        file.setExecutable(true);
+        driverPath = file.getPath();
+
+        return driverPath;
+    }
+
 
     /**
      * Creating web driver for specific browser based on system property "browser"
@@ -85,7 +98,7 @@ public class DriverFactory {
                         throw new RuntimeException(e);
                     }
                 } else {
-                    System.setProperty("webdriver.chrome.driver", driverPath);
+                    System.setProperty("webdriver.chrome.driver", getDirverPath());
                     setDriver(_driver = new ChromeDriver());
                 }
                 _driver.manage().window().maximize();
@@ -101,7 +114,7 @@ public class DriverFactory {
                     }
                 } else {
 
-                    System.setProperty("webdriver.gecko.driver", driverPath);
+                    System.setProperty("webdriver.gecko.driver", getDirverPath());
                     setDriver(_driver = new FirefoxDriver());
                 }
                 _driver.manage().window().maximize();
