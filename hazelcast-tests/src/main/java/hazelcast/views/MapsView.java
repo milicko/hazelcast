@@ -15,6 +15,7 @@ public class MapsView extends HomeView {
      * @return MapsView
      */
     public MapsView verifyEntityValue(String mapName, int expectedValue) {
+        System.out.println("Verifying entity value");
         getTable().verifyValueForRowAndColumn(mapName, COLUMN_ENTRIES, expectedValue);
         return this;
     }
