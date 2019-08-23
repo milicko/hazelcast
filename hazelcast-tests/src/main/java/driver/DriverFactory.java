@@ -56,32 +56,52 @@ public class DriverFactory {
         return driverType;
     }
 
-    public String getDirverPath() {
+    public String getDirverPath(DriverType driverType) {
 
         String os = System.getProperty("os.name");
-        System.out.println(os);
         String driverPath;
-        File file;
+        File file = null;
 
         switch (os) {
+
             case "Mac OS X":
-                file = new File(getClass().getClassLoader().getResource("chromedriver_mac").getPath());
-                file.setExecutable(true);
-                driverPath = file.getPath();
+                switch (driverType) {
+                    case CHROME:
+                        file = new File(getClass().getClassLoader().getResource("chromedriver_mac").getPath());
+                        break;
+                    case FIREFOX:
+                        file = new File(getClass().getClassLoader().getResource("geckodriver_mac").getPath());
+                        break;
+
+                }
+
                 break;
             case "Linux":
-                file = new File(System.getProperty("driver.path"));
-                file.setExecutable(true);
-                driverPath = file.getPath();
+                switch (driverType) {
+                    case CHROME:
+                        file = new File(getClass().getClassLoader().getResource("chromedriver_linux").getPath());
+                        break;
+                    case FIREFOX:
+                        file = new File(getClass().getClassLoader().getResource("geckodriver_linux").getPath());
+                        break;
+
+                }
                 break;
             default:
-                file = new File(getClass().getClassLoader().getResource("chromedriver.exe").getPath());
-                file.setExecutable(true);
-                driverPath = file.getPath();
+                switch (driverType) {
+                    case CHROME:
+                        file = new File(getClass().getClassLoader().getResource("chromedriver.exe").getPath());
+                        break;
+                    case FIREFOX:
+                        file = new File(getClass().getClassLoader().getResource("geckodriver.exe").getPath());
+                        break;
+
+                }
                 break;
         }
 
-
+        file.setExecutable(true);
+        driverPath = file.getPath();
         return driverPath;
     }
 
@@ -93,7 +113,6 @@ public class DriverFactory {
      */
     public WebDriver createDriver(DriverType type) {
         WebDriver driver = null;
-        String driverPath = System.getProperty(DRIVER_PROPERTY);
         String remoteDriver = System.getProperty(REMOTE_DRIVER);
         DesiredCapabilities capabilities = new DesiredCapabilities();
 
@@ -119,7 +138,7 @@ public class DriverFactory {
                     options.addArguments("headless");
                     options.addArguments("--no-sandbox");
                     options.addArguments("--disable-dev-shm-usage");
-                    System.setProperty("webdriver.chrome.driver", getDirverPath());
+                    System.setProperty("webdriver.chrome.driver", getDirverPath(type));
                     setDriver(_driver = new ChromeDriver(options));
                 }
                 _driver.manage().window().maximize();
@@ -135,7 +154,7 @@ public class DriverFactory {
                     }
                 } else {
 
-                    System.setProperty("webdriver.gecko.driver", getDirverPath());
+                    System.setProperty("webdriver.gecko.driver", getDirverPath(type));
                     setDriver(_driver = new FirefoxDriver());
                 }
                 _driver.manage().window().maximize();
