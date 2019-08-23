@@ -70,6 +70,7 @@ public class DriverFactory {
                 driverPath = file.getPath();
                 break;
             case "Linux":
+                System.out.println(System.getProperty("driver.path"));
                 file = new File(System.getProperty("driver.path"));
                 file.setExecutable(true);
                 driverPath = file.getPath();
