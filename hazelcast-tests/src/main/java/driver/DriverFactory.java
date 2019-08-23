@@ -1,7 +1,6 @@
 package driver;
 
 
-import org.apache.commons.exec.util.StringUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -11,16 +10,11 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.io.File;
 import java.net.URI;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public class DriverFactory {
 
 
     private static final String BROWSER_TYPE_PROPERTY = "browser";
-    private static final String DRIVER_PROPERTY = "driver.path";
     private static final String REMOTE_DRIVER = "remote.driver";
 
     public WebDriver getDriver() {
