@@ -58,12 +58,29 @@ public class DriverFactory {
 
     public String getDirverPath() {
 
+        String os = System.getProperty("os.name");
+        System.out.println(os);
         String driverPath;
         File file;
 
-        file = new File(System.getProperty("driver.path"));
-        file.setExecutable(true);
-        driverPath = file.getPath();
+        switch (os) {
+            case "Mac OS X":
+                file = new File(getClass().getClassLoader().getResource("chromedriver_mac").getPath());
+                file.setExecutable(true);
+                driverPath = file.getPath();
+                break;
+            case "Linux":
+                file = new File(getClass().getClassLoader().getResource("chromedriver_linux").getPath());
+                file.setExecutable(true);
+                driverPath = file.getPath();
+                break;
+            default:
+                file = new File(getClass().getClassLoader().getResource("chromedriver.exe").getPath());
+                file.setExecutable(true);
+                driverPath = file.getPath();
+                break;
+        }
+
 
         return driverPath;
     }
