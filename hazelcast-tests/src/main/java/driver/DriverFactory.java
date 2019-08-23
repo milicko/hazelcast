@@ -98,8 +98,9 @@ public class DriverFactory {
                         throw new RuntimeException(e);
                     }
                 } else {
+                    ChromeOptions options = new ChromeOptions();
                     System.setProperty("webdriver.chrome.driver", getDirverPath());
-                    setDriver(_driver = new ChromeDriver());
+                    setDriver(_driver = new ChromeDriver(options.addArguments("--headless")));
                 }
                 _driver.manage().window().maximize();
                 break;
