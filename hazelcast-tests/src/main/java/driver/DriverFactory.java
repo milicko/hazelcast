@@ -70,7 +70,7 @@ public class DriverFactory {
                 driverPath = file.getPath();
                 break;
             case "Linux":
-                file = new File(getClass().getClassLoader().getResource("chromedriver_linux").getPath());
+                file = new File(System.getProperty("driver.path"));
                 file.setExecutable(true);
                 driverPath = file.getPath();
                 break;
@@ -119,7 +119,7 @@ public class DriverFactory {
                     options.addArguments("headless");
                     options.addArguments("--no-sandbox");
                     options.addArguments("--disable-dev-shm-usage");
-                    System.setProperty("webdriver.chrome.driver", driverPath);
+                    System.setProperty("webdriver.chrome.driver", getDirverPath());
                     setDriver(_driver = new ChromeDriver(options));
                 }
                 _driver.manage().window().maximize();
